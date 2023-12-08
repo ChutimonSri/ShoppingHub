@@ -563,6 +563,17 @@ header .search-bar-container label:hover{
     width: 100%;
 }
 
+.brand-container {
+    text-align: center;
+}
+
+/* Add this CSS to your stylesheet */
+.brand-slider .swiper-slider img {
+    height: 60%; /* Set a fixed height for the images, adjust as needed */
+    width: 60%;  /* Allow the width to adjust proportionally */
+    object-fit: contain; /* Maintain aspect ratio and cover the entire container */
+  }
+  
 
 /* media queries */
 @media (max-width:1200px) {
