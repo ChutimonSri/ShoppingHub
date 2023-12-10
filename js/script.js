@@ -1,11 +1,29 @@
 let searchBtn = document.querySelector('#search-btn');
 let searchBar = document.querySelector('.search-bar-container');
-let formBtn = document.querySelector('#login-btn');
+
+let loginFormBtn = document.querySelector('#login-btn');
 let loginForm = document.querySelector('.login-form-container');
-let formClose = document.querySelector('#form-close');
+let loginBtnSignup = document.querySelector('#login-btn-signup');
+let loginFormClose = document.querySelector('#login-form-close');
+
+let signupFormBtn = document.querySelector('#signup-btn');
+let signupForm = document.querySelector('.signup-form-container');
+let signupBtn = document.querySelector('#signup-btn');
+let signupFormClose = document.querySelector('#signup-form-close');
+
 let menu = document.querySelector('#menu-bar');
 let navbar = document.querySelector('.navbar');
 let videoBtn = document.querySelectorAll('.vid-btn');
+
+loginBtnSignup.addEventListener('click', () => {
+    signupForm.classList.remove('active'); // Close the signup form if open
+    loginForm.classList.toggle('active'); // Toggle visibility of login form
+});
+
+signupBtn.addEventListener('click', () => {
+    loginForm.classList.remove('active'); // Close the login form if open
+    signupForm.classList.toggle('active'); // Toggle visibility of signup form
+});
 
 
 window.onscroll = () =>{
@@ -27,12 +45,20 @@ searchBtn.addEventListener('click', () => {
 });
 
 
-formBtn.addEventListener('click', () => {
+loginFormBtn.addEventListener('click', () => {
     loginForm.classList.add('active');
 });
 
-formClose.addEventListener('click', () => {
+loginFormClose.addEventListener('click', () => {
     loginForm.classList.remove('active');
+});
+
+signupFormBtn.addEventListener('click', () => {
+    signupForm.classList.add('active');
+});
+
+signupFormClose.addEventListener('click', () => {
+    signupForm.classList.remove('active');
 });
 
 videoBtn.forEach(btn =>{
@@ -84,3 +110,4 @@ var swiper = new Swiper(".brand-slider", {
         },
     },
 });
+

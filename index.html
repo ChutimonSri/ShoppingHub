@@ -12,9 +12,19 @@
 
     <!-- custom css file link -->
     <link rel ="stylesheet" href="css/style.css">
+
+    <!-- Include FirebaseUI -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css"
+    />
   </head>
   <body>
+    
   <header>
+
     <div id="menu-bar" class="fas fa-bars"></div>  
     <a href="#" class="logo"><span>T</span>ravel planner hub</a>
     <nav class ="navbar">
@@ -29,7 +39,9 @@
 
     <div class="icons">
       <i class="fas fa-search" id="search-btn"></i>
-      <i class="fas fa-user" id="login-btn"></i>
+      <a id="btn-icon">
+        <i class="fas fa-user" id="login-btn"></i>
+      </a>
     </div>
 
     <form action="" class="search-bar-container">
@@ -44,17 +56,28 @@
 
 <!-- login form container -->
 <div class="login-form-container">
-  <i class="fas fa-times" id="form-close"></i>
+  <i class="fas fa-times" id="login-form-close"></i>
 
-  <form action="">
+  <form>
     <h3>login</h3>
-    <input type="email" class="box" placeholder="enter your email">
-    <input type="password" class="box" placeholder="enter your password">
-    <input type="submit" value="login now" class="btn">
-    <input type="checkbox" id="remember">
-    <label for="remember">remember me</label>
-    <p>forget password? <a href="#">click here"</a></p>
-    <p>don't have an account <a href="#">register now"</a></p>
+    <input type="email" id="login-email" class="box" placeholder="enter your email">
+    <input type="password" id="login-pwd" class="box" placeholder="enter your password">
+    <input type="submit" id="login" value="login now" class="btn">
+    <p>don't have an account <a href="#" id="signup-btn">register now</a></p>
+
+  </form>
+</div>
+
+<!-- register form container -->
+<div class="signup-form-container">
+  <i class="fas fa-times" id="signup-form-close"></i>
+
+  <form>
+    <h3>Register</h3>
+    <input type="email" id="register-email" class="box" placeholder="enter your email">
+    <input type="password" id="register-pwd" class="box" placeholder="enter your password">
+    <input type="submit" id="signUp" value="Register" class="btn">
+    <p>already have an account <a href="#" id="login-btn-signup">login now</a></p>
 
   </form>
 </div>
@@ -149,6 +172,57 @@
       <img src="images/bangkok1.webp" alt="">
       <div class="content">
         <h3><i class="fas fa-map-marker-alt"></i> bangkok </h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ut.</p>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <div class="price"> $90.00 <span>$120.00</span></div>
+        <a href="#" class="btn">book now!</a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="images/brussels.webp" alt="">
+      <div class="content">
+        <h3><i class="fas fa-map-marker-alt"></i> brussels</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ut.</p>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <div class="price"> $90.00 <span>$120.00</span></div>
+        <a href="#" class="btn">book now!</a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="images/abisko.webp" alt="">
+      <div class="content">
+        <h3><i class="fas fa-map-marker-alt"></i> abisko national park </h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ut.</p>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <div class="price"> $90.00 <span>$120.00</span></div>
+        <a href="#" class="btn">book now!</a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="images/sydney.webp" alt="">
+      <div class="content">
+        <h3><i class="fas fa-map-marker-alt"></i> sydney </h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ut.</p>
         <div class="stars">
           <i class="fas fa-star"></i>
@@ -626,5 +700,115 @@
 
     
 </body>
+
+<script type="module">
+  
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "firebase/app";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAujvXia15Ml95rkVO42bHxsnhtKYvNXfM",
+    authDomain: "travelhub-9546a.firebaseapp.com",
+    databaseURL: "https://travelhub-9546a-default-rtdb.firebaseio.com",
+    projectId: "travelhub-9546a",
+    storageBucket: "travelhub-9546a.appspot.com",
+    messagingSenderId: "668194569816",
+    appId: "1:668194569816:web:1999b4c705c327a9ae942d"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  export const signUp = document.querySelector('#signUp')
+  export const regisEmail = document.querySelector('#register-email')
+  export const regisPassword = document.querySelector('#register-pwd')
+
+  export const login = document.querySelector('#login')
+  export const loginEmail = document.querySelector('#login-email')
+  export const loginPassword = document.querySelector('#login-pwd')
+
+  signUp.addEventListener('click', async ()=>{
+
+    const email = regisEmail.value;
+    const password = regisPassword.value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up 
+      const user = userCredential.user;
+      console.log(user)
+      console.log(userCredential)
+      page();
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("Error Code: " + errorCode)
+      console.log("Error Message: " + errorMessage)
+      alert(errorMessage);
+
+    });
+  });
+
+  login.addEventListener('click', async ()=>{
+
+    const email = loginEmail.value;
+    const password = loginPassword.value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up 
+      const user = userCredential.user;
+      console.log(user)
+      console.log(userCredential)
+      page();
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("Error Code: " + errorCode)
+      console.log("Error Message: " + errorMessage)
+      alert('Email or Password incorrect!!!');
+  
+      // ..
+    });
+  });
+
+  const page = async () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        loginForm.classList.remove('active')
+        signupForm.classList.remove('active')
+        console.log(user.email);
+        const userEmail = user.email;
+        document.getElementById("btn-icon").innerHTML = '<i class="fas fa-sign-out-alt" id="logout-btn"> logout </i>';
+        const btnLogout = document.querySelector('#logout-btn');
+        const logout = async () => {
+          await signOut(auth);
+        }
+        btnLogout.addEventListener('click', logout);
+      } else {
+        // User is signed out
+        // ...
+        console.log("user sign out");
+        document.getElementById("btn-icon").innerHTML = '<i class="fas fa-user" id="login-btn"></i>';
+        const formBtn = document.querySelector('#login-btn');
+        formBtn.addEventListener('click', () => {
+            loginForm.classList.add('active');
+        });
+      }
+    });
+  }
+
+</script>
 </html>
 
